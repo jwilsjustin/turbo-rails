@@ -27,8 +27,15 @@ class Turbo::FramesHelperTest < ActionView::TestCase
     assert_dom_equal %(<turbo-frame id="comments_article_1"></turbo-frame>), turbo_frame_tag(record, "comments")
   end
 
+  test "string frame within a double model frame" do
+    article = Article.new(id: 1)
+    comment = Comment.new(id: 1)
+
+    assert_dom_equal %(<turbo-frame id="article_1_comment_1"></turbo-frame>), turbo_frame_tag(article, comment)
+  end
+
   test "string frame with non-record array" do
-    assert_dom_equal %(<turbo-frame id="foo_1_2"></turbo-frame>), turbo_frame_tag(['foo', 1, 2])
+    assert_dom_equal %(<turbo-frame id="foo_1_2"></turbo-frame>), turbo_frame_tag(["foo", 1, 2])
   end
 
   test "block style" do
